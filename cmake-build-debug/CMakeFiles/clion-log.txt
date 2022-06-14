@@ -1,0 +1,4 @@
+C:\Users\omril\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.6461.75\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/omril/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/213.6461.75/bin/ninja/win/ninja.exe -G Ninja "C:\Users\omril\Documents\לימודים\תל חי\Second Year\Semester D\OOP Advenced\Exercises\Exercise 3"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/omril/Documents/לימודים/תל חי/Second Year/Semester D/OOP Advenced/Exercises/Exercise 3/cmake-build-debug

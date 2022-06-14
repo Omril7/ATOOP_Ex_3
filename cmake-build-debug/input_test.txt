@@ -1,0 +1,8 @@
+create Sylvester Chopper (14.00, 14.00)
+create Nadakhan Chopper (24.00, 24.00)
+create Cooper State_trooper Frankfurt
+Sylvester course 180 100
+Nadakhan course 270 100
+Cooper destination Hamburg
+go
+status
