@@ -62,5 +62,11 @@ void Point::print() const {
 bool Point::operator==(const Point & rhs) {
 	return x == rhs.x && y == rhs.y;
 }
+double Point::distance(Point p) {
+    double first = pow(p.x - x, 2) ;
+    double second = pow(p.y - y, 2);
+    double d = pow(first + second, 0.5);
+    return d;
+}
 
 //double angle = atan2(y2 - y1, x2 - x1) * 180 / PI;

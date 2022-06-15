@@ -7,7 +7,7 @@
 void Vehicle::update(Time t) {
     if(status != "Stopped") {
         Polar_vector pv;
-        pv.theta = course;
+        pv.theta = to_radians(course);
         pv.r = static_cast<double>(getSpeed()) / 100;
         Cartesian_vector cv(pv);
         setLocation(cv.delta_x + getLocation().x, cv.delta_y + getLocation().y);
@@ -73,11 +73,19 @@ void Truck::update(Time t) {
             dest->quantity = 0;
             if(t.hour > dest->departure.hour || (t.hour == dest->departure.hour && t.minute >= dest->departure.minute)) {
                 route.pop();
+                check = true;
             }
         }
-        _destination(route.front()->dest->getLocation().x, route.front()->dest->getLocation().y, route.front()->dest->getName());
+        if(check) {
+            _destination(route.front()->dest->getLocation().x, route.front()->dest->getLocation().y, route.front()->dest->getName());
+            double distance = getLocation().distance(getDestination()) * 10;
+            int hDistance = route.front()->departure.hour - route.front()->arrival.hour;
+            int s = static_cast<int>(distance / hDistance);
+            setSpeed(s);
+            check = false;
+        }
         Polar_vector pv;
-        pv.theta = course;
+        pv.theta = to_radians(course);
         pv.r = static_cast<double>(getSpeed()) / 100;
         Cartesian_vector cv(pv);
         setLocation(cv.delta_x + getLocation().x, cv.delta_y + getLocation().y);

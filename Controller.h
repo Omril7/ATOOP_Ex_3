@@ -13,6 +13,7 @@ using namespace std;
 class Controller {
 public:
     Controller() { view_ptr = make_shared<View>(); }
+    ~Controller() {}
     void run(int argc, char* argv[]);
 
 private:

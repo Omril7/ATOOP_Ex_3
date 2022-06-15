@@ -30,6 +30,7 @@ public:
     int getSpeed() const { return speed; }
     void setSpeed(int s) { speed = s; }
     void setDestination(double x, double y) { destination.x = x; destination.y = y; }
+    Point getDestination() const { return destination; }
     virtual void getStatus() const = 0;             // <name> <location> <status>
     virtual void addNode(shared_ptr<node> np) = 0;
     virtual void setInventory(int i) = 0;
@@ -53,6 +54,7 @@ public:
     void addNode(shared_ptr<node> np) { route.push(np); }
     virtual void setInventory(int i) { inventory = i; }
 private:
+    bool check = true;
     int inventory;
     queue<shared_ptr<node> > route;
 };

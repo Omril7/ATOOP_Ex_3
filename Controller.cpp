@@ -115,7 +115,7 @@ void Controller::run(int argc, char* argv[]) {
         shared_ptr<Vehicle> truck = factory.create(name, "Truck",  x, y);
 
         int inv = 0;
-        int first = 0;
+        int hourStart, hourEnd;
         queue<shared_ptr<node> > route;
         while(getline(file, line, '\n')) {
             i=0;
@@ -123,10 +123,6 @@ void Controller::run(int argc, char* argv[]) {
             stringstream ss(line);
             while(getline(ss, buffer, ',')) {
                 if(i==0 && Model::getInstance().isWarehouse(buffer)) {
-                    if(first == 0) {
-                        truck->_destination(x, y, buffer);
-                        first++;
-                    }
                     n->dest = Model::getInstance().getWarehouse(buffer);
                 }
                 else if(i==1) {
@@ -184,27 +180,27 @@ void Controller::run(int argc, char* argv[]) {
                 Model::getInstance().status();
             } // if the command is "status" so its show the status at the moment
             else {
-                stringstream ss(command);
+                stringstream ssCommand(command);
 
                 vector<string> buffers;
                 string buffer;
-                while(getline(ss, buffer, ' ')) {
+                while(getline(ssCommand, buffer, ' ')) {
                     buffers.push_back(buffer);
                 } // put in vector string by string from command
 
                 if(buffers.size() == 2 && buffers[0] == "size") {
                     int s = getInt(buffers[1]);
                     view_ptr->size(s);
-                }        // V
+                }
                 else if(buffers.size() == 2 && buffers[0] == "zoom") {
                     double z = getDouble(buffers[1]);
                     view_ptr->zoom(z);
-                }   // V
+                }
                 else if(buffers.size() == 3 && buffers[0] == "pan") {
                     double x = getDouble(buffers[1]);
                     double y = getDouble(buffers[2]);
                     view_ptr->pan(x, y);
-                }    // V
+                }
                 else if(buffers[0] == "create") {
                     if(Model::getInstance().isVehicle(buffers[1])) {
                         cerr << buffers[1] << " is already on map!" << endl;
@@ -221,7 +217,7 @@ void Controller::run(int argc, char* argv[]) {
                         }
                         Model::getInstance().addVehicle(factory.create(buffers[1], buffers[2], x, y));
                     }
-                }                        // V
+                }
                 else { // Vehicle command
                     if(Model::getInstance().isVehicle(buffers[0])) {
                         commands.push(command);
@@ -240,11 +236,11 @@ void Controller::run(int argc, char* argv[]) {
             string current = commands.front();
             commands.pop();
 
-            stringstream ss(current);
+            stringstream ssCurrent(current);
 
             vector<string> buffers;
             string buffer;
-            while(getline(ss, buffer, ' ')) {
+            while(getline(ssCurrent, buffer, ' ')) {
                 buffers.push_back(buffer);
             } // put in vector string by string from command
 
@@ -258,7 +254,7 @@ void Controller::run(int argc, char* argv[]) {
                 else {
                     Model::getInstance().getVehicle(buffers[0])->setCourse(angle);
                 }
-            }           // V
+            }
             else if(buffers.size() >= 4 && buffers[1] == "position") {
                 double x = getX(buffers[2]);
                 double y = getX(buffers[3]);
@@ -269,12 +265,12 @@ void Controller::run(int argc, char* argv[]) {
                 else {
                     Model::getInstance().getVehicle(buffers[0])->position(x,y);
                 }
-            }    // V
+            }
             else if(buffers.size() == 3 && buffers[1] == "destination") {
                 double x = Model::getInstance().getWarehouse(buffers[2])->getLocation().x;
                 double y = Model::getInstance().getWarehouse(buffers[2])->getLocation().y;
                 Model::getInstance().getVehicle(buffers[0])->_destination(x,y, buffers[2]);
-            } // V
+            }
             else if(buffers.size() == 3 && buffers[1] == "attack") {
                 shared_ptr<Vehicle> chopper = Model::getInstance().getVehicle(buffers[0]);
                 shared_ptr<Vehicle> truck = Model::getInstance().getVehicle(buffers[2]);
@@ -283,7 +279,7 @@ void Controller::run(int argc, char* argv[]) {
             }      /*** NEED TO IMPLEMENT ***/
             else if(buffers.size() == 2 && buffers[1] == "stop") {
                 Model::getInstance().getVehicle(buffers[0])->stop();
-            }        // V
+            }
 
         }
         Time t(time+1);
