@@ -28,14 +28,11 @@ public:
 
     string getName() const { return name; }
     Point getLocation() const { return location; }
-    void setName(string name) { this->name = name; } // NOT NEEDED
     void setLocation(double x, double y) { // maybe void setLocation(Point p);
         location.x = x;
         location.y = y;
     }
     virtual void getStatus() const = 0;             // <name> <location> <status>
-
-    void broadcastCurrentState(); /// ?????????
 };
 
 
