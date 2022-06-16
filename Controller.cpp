@@ -155,6 +155,7 @@ void Controller::run(int argc, char* argv[]) {
             truck->addNode(n);
         }
         truck->setInventory(inv);
+        Model::getInstance().getWarehouse(src)->take(inv);
         Model::getInstance().addVehicle(truck);
 
         count++;

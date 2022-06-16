@@ -18,7 +18,7 @@ void Vehicle::setCourse(double angle, int speed) {
     course = angle;
     setDestination(INFINITY, INFINITY);
     stringstream ss;
-    ss << "Heading on course " << angle;
+    ss << "Heading on course " << angle << " deg";
     status = ss.str();
     if(speed != -1) {
         setSpeed(speed);
@@ -32,7 +32,7 @@ void Vehicle::position(double x, double y, int speed) {
     setDestination(x,y);
 
     stringstream ss;
-    ss << "Heading to (" << x << "," << y << ")\n";
+    ss << "Heading to (" << x << "," << y << ")";
     status = ss.str();
     if(speed != -1) {
         setSpeed(speed);

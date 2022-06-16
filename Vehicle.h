@@ -22,9 +22,9 @@ public:
     Vehicle(string name) : SimObj(name) {}
     virtual void update(Time t);
 
-    void setCourse(double angle, int speed = -1);           // status = "Moving on course"
-    void position(double x, double y, int speed = -1);      // status = "Moving to (x,y)"
-    void _destination(double x, double y, string warehouse); // status = "Moving to warehouse
+    void setCourse(double angle, int speed = -1);
+    void position(double x, double y, int speed = -1);
+    void _destination(double x, double y, string warehouse);
 
     void stop();
     int getSpeed() const { return speed; }
@@ -49,7 +49,7 @@ public:
         setLocation(x, y);
         status = " ";
     }
-    void getStatus() const;                              // <name> <location> <status>
+    void getStatus() const;
     virtual void update(Time t);
     void addNode(shared_ptr<node> np) { route.push(np); }
     virtual void setInventory(int i) { inventory = i; }

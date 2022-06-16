@@ -14,10 +14,11 @@ public:
     }
     void add(int boxes) { inventory += boxes; }
     void take(int boxes) { inventory -= boxes; }
-    virtual void update(Time t);
-    virtual void getStatus() const;             // <name> <location> <status>
+    virtual void update(Time t) {}
+    virtual void getStatus() const {
+        cout << setprecision(2) << "Warehouse " << getName() << " at position (" << getLocation().x << ", " << getLocation().y << "), Inventory: " << inventory << endl;
+    }
 private:
-//    queue<node> route;
     int inventory;
 };
 
