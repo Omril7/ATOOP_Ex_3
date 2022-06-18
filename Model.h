@@ -24,6 +24,7 @@ public:
 
     shared_ptr<Warehouse> getWarehouse(string name) const;
     shared_ptr<Vehicle> getVehicle(string name) const;
+    vector<shared_ptr<Warehouse> > getWarehouseList() const { return warehouse_list; }
     int getWarehouseListSize() const { return static_cast<int>(warehouse_list.size()); }
     int getVehicleListSize() const { return static_cast<int>(vehicle_list.size()); }
     bool isWarehouse(string name) const;

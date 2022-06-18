@@ -34,6 +34,7 @@ public:
     virtual void getStatus() const = 0;             // <name> <location> <status>
     virtual void addNode(shared_ptr<node> np) = 0;
     virtual void setInventory(int i) = 0;
+    virtual void setRoute(vector<shared_ptr<Warehouse> > warehouses) {}
 
 protected:
     string status = "Stopped"; // {"Stopped","parked","Off road","Moving to.."}
@@ -65,10 +66,15 @@ public:
         setSpeed(90);
         setLocation(x, y);
     }
-
+    virtual void setRoute(vector<shared_ptr<Warehouse> > warehouses);
+    int findClosestPointIndex(vector<shared_ptr<Warehouse> > warehouses, vector<bool> chosen, int curr);
     void getStatus() const;
+    virtual void update(Time t);
     virtual void addNode(shared_ptr<node> np) {}
     virtual void setInventory(int i) {}
+
+private:
+    queue<shared_ptr<Warehouse> > route;
 };
 
 class Chopper : public Vehicle {

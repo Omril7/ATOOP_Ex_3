@@ -211,12 +211,15 @@ void Controller::run(int argc, char* argv[]) {
                         if(buffers.size() == 4 && buffers[2] == "State_trooper") {
                             x = Model::getInstance().getWarehouse(buffers[3])->getLocation().x;
                             y = Model::getInstance().getWarehouse(buffers[3])->getLocation().y;
+                            Model::getInstance().addVehicle(factory.create(buffers[1], buffers[2], x, y));
+                            Model::getInstance().getVehicle(buffers[1])->setRoute(Model::getInstance().getWarehouseList());
                         }
                         else if(buffers.size() == 5 && buffers[2] == "Chopper") {
                             x = getX(buffers[3]);
                             y = getY(buffers[4]);
+                            Model::getInstance().addVehicle(factory.create(buffers[1], buffers[2], x, y));
                         }
-                        Model::getInstance().addVehicle(factory.create(buffers[1], buffers[2], x, y));
+
                     }
                 }
                 else { // Vehicle command
