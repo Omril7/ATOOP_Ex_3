@@ -37,6 +37,7 @@ shared_ptr<Warehouse> Model::getWarehouse(string name) const {
             return warehouse_list[i];
         }
     }
+    return nullptr;
 }
 shared_ptr<Vehicle> Model::getVehicle(string name) const {
     for(int i=0; i<static_cast<int>(vehicle_list.size()); i++) {
@@ -44,6 +45,7 @@ shared_ptr<Vehicle> Model::getVehicle(string name) const {
             return vehicle_list[i];
         }
     }
+    return nullptr;
 }
 
 bool Model::isWarehouse(string name) const {

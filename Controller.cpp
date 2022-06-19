@@ -115,7 +115,6 @@ void Controller::run(int argc, char* argv[]) {
         shared_ptr<Vehicle> truck = factory.create(name, "Truck",  x, y);
 
         int inv = 0;
-        int hourStart, hourEnd;
         queue<shared_ptr<node> > route;
         while(getline(file, line, '\n')) {
             i=0;

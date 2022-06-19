@@ -46,12 +46,8 @@ void Vehicle::position(double x, double y, int speed) {
 void Vehicle::_destination(double x, double y, string warehouse) {
     Point p(x-getLocation().x, y-getLocation().y);
     Polar_vector pv(p);
-    double angle = to_degrees(pv.theta) + 90;
-    if( angle >= 360 ) {
-        angle -= 360;
-    }
+    double angle = to_degrees(pv.theta);
     setCourse(angle);
-    setCourse(to_degrees(pv.theta));
     setDestination(x,y);
 
     stringstream ss;
@@ -101,7 +97,6 @@ void Truck::update(Time t) {
     }
 }
 
-//State_trooper::State_trooper(string name, string src_warehouse) {}
 void State_trooper::getStatus() const {
     cout << setprecision(2) << "State_trooper " << getName() << " at (" << getLocation().x << ", " << getLocation().y << "), "
     << status << ", speed " << getSpeed() << " km/h" << endl;
@@ -127,7 +122,6 @@ void State_trooper::setRoute(vector<shared_ptr<Warehouse> > warehouses) {
     for(int i=0; i<static_cast<int>(chosen.size()); i++) {
         chosen[i] = false;
     }
-
     int curr;
     int next;
     for(int i=0; i<static_cast<int>(warehouses.size()); i++) {
@@ -144,6 +138,11 @@ void State_trooper::setRoute(vector<shared_ptr<Warehouse> > warehouses) {
         chosen[next] = true;
         curr = next;
     }
+
+    route.push(route.front());
+    route.pop();
+
+    _destination(route.front()->getLocation().x, route.front()->getLocation().y, route.front()->getName());
 }
 int State_trooper::findClosestPointIndex(vector<shared_ptr<Warehouse> > warehouses, vector<bool> chosen, int curr) {
     int idx;
@@ -160,7 +159,6 @@ int State_trooper::findClosestPointIndex(vector<shared_ptr<Warehouse> > warehous
     return idx;
 }
 
-//Chopper::Chopper(string name, float xPos, float yPos) {}
 void Chopper::getStatus() const {
     cout << setprecision(2) << "Chopper " << getName() << " at (" << getLocation().x << ", " << getLocation().y << "), "
     << status << ", speed " << getSpeed() << " km/h" << endl;
