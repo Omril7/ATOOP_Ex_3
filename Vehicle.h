@@ -17,6 +17,8 @@ struct node {
     Time departure;
 };
 
+enum Type {truck, state_trooper, chopper};
+
 class Vehicle : public SimObj {
 public:
     Vehicle(string name) : SimObj(name) {}
@@ -27,6 +29,7 @@ public:
     void _destination(double x, double y, string warehouse);
 
     void stop();
+    virtual void offRoad();
     int getSpeed() const { return speed; }
     void setSpeed(int s) { speed = s; }
     void setDestination(double x, double y) { destination.x = x; destination.y = y; }
@@ -35,12 +38,15 @@ public:
     virtual void addNode(shared_ptr<node> np) = 0;
     virtual void setInventory(int i) = 0;
     virtual void setRoute(vector<shared_ptr<Warehouse> > warehouses) {}
+    virtual void attack(shared_ptr<Vehicle> truck, vector<shared_ptr<Vehicle> > v_list) {}
+    Type getType() const { return t; }
 
 protected:
     string status = "Stopped"; // {"Stopped","parked","Off road","Moving to.."}
     int speed = 90;
     double course;      // in degrees
     Point destination;  // where to
+    Type t;
 };
 
 class Truck : public Vehicle {
@@ -49,9 +55,11 @@ public:
         setSpeed(90);
         setLocation(x, y);
         status = " ";
+        t = truck;
     }
     void getStatus() const;
     virtual void update(Time t);
+    virtual void offRoad() { inventory = 0; }
     void addNode(shared_ptr<node> np) { route.push(np); }
     virtual void setInventory(int i) { inventory = i; }
 private:
@@ -65,6 +73,7 @@ public:
     State_trooper(string name, double x, double y) : Vehicle(name) { // speed = 90
         setSpeed(90);
         setLocation(x, y);
+        t = state_trooper;
     }
     virtual void setRoute(vector<shared_ptr<Warehouse> > warehouses);
     int findClosestPointIndex(vector<shared_ptr<Warehouse> > warehouses, vector<bool> chosen, int curr);
@@ -81,10 +90,11 @@ class Chopper : public Vehicle {
 public:
     Chopper(string name, double xPos, double yPos) : Vehicle(name) {
         setLocation(xPos,yPos);
+        t = chopper;
     }
 
     void getStatus() const;
-    void attack(string attackedTruck);
+    virtual void attack(shared_ptr<Vehicle> truck, vector<shared_ptr<Vehicle> > v_list);
     virtual void addNode(shared_ptr<node> np) {}
     virtual void setInventory(int i) {}
 private:

@@ -37,3 +37,9 @@
 2822	3547	6773525733052019	Exercise_3.exe	3a6d6c9276cd0c90
 4	1568	6773534835923210	CMakeFiles/Exercise_3.dir/Vehicle.cpp.obj	5609ef49ac2a0189
 1569	1998	6773534840111022	Exercise_3.exe	3a6d6c9276cd0c90
+100	3153	6775045448800989	CMakeFiles/Exercise_3.dir/Model.cpp.obj	97686e9f617c7bfa
+105	3158	6775045448860775	CMakeFiles/Exercise_3.dir/Vehicle.cpp.obj	5609ef49ac2a0189
+14	3323	6775045451114723	CMakeFiles/Exercise_3.dir/main.cpp.obj	ddbf30b6b6626643
+109	3352	6775045451513666	CMakeFiles/Exercise_3.dir/View.cpp.obj	69eb7a11f8941518
+97	3570	6775045453917230	CMakeFiles/Exercise_3.dir/Controller.cpp.obj	ef1f55f00fa5bb29
+3570	4130	6775045459482352	Exercise_3.exe	3a6d6c9276cd0c90

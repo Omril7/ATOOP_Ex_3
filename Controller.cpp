@@ -39,8 +39,6 @@ double getDouble(string stringDouble) {
 }
 
 void Controller::run(int argc, char* argv[]) {
-    cout << "Start run in Controller" << endl;
-
     if(argc < 5) {
         cerr << "Not enough information" << endl;
         exit(-1);
@@ -277,8 +275,7 @@ void Controller::run(int argc, char* argv[]) {
             else if(buffers.size() == 3 && buffers[1] == "attack") {
                 shared_ptr<Vehicle> chopper = Model::getInstance().getVehicle(buffers[0]);
                 shared_ptr<Vehicle> truck = Model::getInstance().getVehicle(buffers[2]);
-
-                cout << buffers[0] << " attacks " << buffers[2] << endl;
+                chopper->attack(truck, Model::getInstance().getVehicleList());
             }      /*** NEED TO IMPLEMENT ***/
             else if(buffers.size() == 2 && buffers[1] == "stop") {
                 Model::getInstance().getVehicle(buffers[0])->stop();

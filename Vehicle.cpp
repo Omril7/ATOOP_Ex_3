@@ -64,6 +64,10 @@ void Vehicle::stop() {
     status = "Stopped";
     setSpeed(0);
 }
+void Vehicle::offRoad() {
+    stop();
+    status = "Off road";
+}
 
 void Truck::getStatus() const {
     cout << setprecision(2) << "Truck " << getName() << " at (" << getLocation().x << ", " << getLocation().y << "), "
@@ -163,4 +167,21 @@ void Chopper::getStatus() const {
     cout << setprecision(2) << "Chopper " << getName() << " at (" << getLocation().x << ", " << getLocation().y << "), "
     << status << ", speed " << getSpeed() << " km/h" << endl;
 }
-void Chopper::attack(string attackedTruck) {} /// args will be different
+void Chopper::attack(shared_ptr<Vehicle> truck, vector<shared_ptr<Vehicle> > v_list) {
+    if(getLocation().distance(truck->getLocation()) >  attackRange ) {
+        return;
+    }
+    for(int i=0; i<static_cast<int>(v_list.size()); i++) {
+        if(v_list[i]->getType() == state_trooper) {
+            if(getLocation().distance(v_list[i]->getLocation()) > 10) {
+                // success
+                truck->offRoad();
+                attackRange++;
+            }
+            else {
+                attackRange--;
+            }
+            stop();
+        }
+    }
+}
